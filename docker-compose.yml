@@ -50,6 +50,21 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
+  websocket-service:
+    build:
+      context: ./websocket-service
+      dockerfile: Dockerfile.dev
+    environment:
+      NODE_ENV: development
+      WEBSOCKET_PORT: 5001
+      FRONTEND_ORIGIN: http://localhost:3000
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./websocket-service/src:/app/src
+      - ./websocket-service/.development.env:/app/.development.env
+    restart: unless-stopped
+
 volumes:
   db_data:
   rabbitmq_data:

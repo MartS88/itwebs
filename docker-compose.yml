@@ -1,0 +1,55 @@
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypass
+      MYSQL_DATABASE: itwebs
+      MYSQL_ROOT_PASSWORD: dexter12345
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  redis:
+    image: redis:7
+    restart: always
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile.dev
+    environment:
+      NODE_ENV: development
+      RABBIT_URI: amqp://admin:admin123@rabbitmq:5672
+      RABBIT_URI_DEV: amqp://admin:admin123@rabbitmq:5672
+      MAILTRAP_TOKEN: 74c06777f813fd70db35e0644519bef9
+    volumes:
+      - ./notification-service/src:/app/src
+      - ./notification-service/.development.env:/app/.development.env
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  db_data:
+  rabbitmq_data:

@@ -1,0 +1,16 @@
+export const MIMETYPE = {
+  IMAGE_JPEG: 'image/jpeg',
+  IMAGE_PNG: 'image/png',
+  IMAGE_WEBP: 'image/webp',
+  IMAGE_HEIC: 'image/heic',
+  IMAGE_HEIF: 'image/heif',
+  APPLICATION_PDF: 'application/pdf',
+  APPLICATION_OCTET_STREAM: 'application/octet-stream',
+  TEXT_PLAIN: 'text/plain',
+  APPLICATION_MSWORD: 'application/msword',
+  APPLICATION_DOCX: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  APPLICATION_EXCEL: 'application/vnd.ms-excel',
+  APPLICATION_XLSX: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  APPLICATION_POWERPOINT: 'application/vnd.ms-powerpoint',
+  APPLICATION_PPTX: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+} as const;

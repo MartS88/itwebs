@@ -3,16 +3,18 @@
 ## Quick Start
 
 ```bash
-# 1. Start infrastructure
-docker-compose up -d
+# 1. Install dependencies
+bun install
+
+# 2. Setup environment
+cp .env.example .development.env
+cp notification-service/.env.example notification-service/.development.env
+cp websocket-service/.env.example websocket-service/.development.env
 ```
 
 ```bash
-# 2. Install dependencies
-bun install
-
-# 3. Setup environment
-cp .env.example .development.env
+# 3. Start Docker
+docker-compose up -d
 ```
 
 ```bash
@@ -26,7 +28,8 @@ bun run dev
 ```
 
 **API:** http://localhost:7000  
-**NOTIFICATION_SERVICE:** http://localhost:3001  
+**NOTIFICATION_SERVICE:** http://localhost:3001
+**WEBSOCKET_SERVICE:** http://localhost:5001   
 **RabbitMQ UI:** http://localhost:15672 (admin/admin123)
 
 ## Architecture

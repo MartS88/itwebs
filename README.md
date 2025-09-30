@@ -14,10 +14,13 @@ bun install
 # 3. Setup environment
 cp .env.example .development.env
 ```
+
 ```bash
 # 4. Run migrations (wait 10-15s for MySQL)
 bun run migrate
+```
 
+```bash
 # 5. Start API
 bun run dev
 ```
